@@ -61,11 +61,11 @@ export default function ProductCard({ product }: ProductCardProps) {
           )}
 
           {/* Imagem do Produto */}
-          <div className="relative h-64 overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center">
+          <div className="relative h-48 overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center p-4">
             <img 
               src={product.image} 
               alt={product.name}
-              className={`w-full h-full object-cover transition-transform duration-500 ${
+              className={`max-w-full max-h-full object-contain transition-transform duration-500 ${
                 isHovered ? 'scale-110' : 'scale-100'
               }`}
             />
