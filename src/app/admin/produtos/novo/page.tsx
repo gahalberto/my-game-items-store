@@ -47,7 +47,7 @@ export default function NovoProductPage() {
     }
 
     if (!formData.image.trim()) {
-      newErrors.image = 'URL da imagem é obrigatória';
+      newErrors.image = 'Imagem é obrigatória - faça upload de uma imagem';
     }
 
     if (!formData.stock || formData.stock < 0) {
@@ -105,6 +105,7 @@ export default function NovoProductPage() {
   };
 
   const handleImageUploaded = (url: string) => {
+    console.log('Callback recebido - URL:', url);
     handleInputChange('image', url);
   };
 

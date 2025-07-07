@@ -40,9 +40,11 @@ export default function ImageUpload({ onImageUploaded, currentImage, onImageRemo
       const data = await response.json();
 
       if (data.success) {
+        console.log('Upload sucesso - URL:', data.data.url);
         onImageUploaded(data.data.url);
         toast.success('Imagem enviada com sucesso!');
       } else {
+        console.log('Upload falhou:', data.error);
         throw new Error(data.error || 'Erro no upload');
       }
     } catch (error: any) {
