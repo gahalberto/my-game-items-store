@@ -1,7 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { writeFile, mkdir } from 'fs/promises';
-import { join } from 'path';
-import { existsSync } from 'fs';
+import { v2 as cloudinary } from 'cloudinary';
+
+// Configurar Cloudinary
+cloudinary.config({
+  cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 export async function POST(request: NextRequest) {
   try {
@@ -31,32 +36,27 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Converter para base64
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
+    const base64String = `data:${file.type};base64,${buffer.toString('base64')}`;
 
-    // Criar nome único para o arquivo
-    const timestamp = Date.now();
-    const originalName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
-    const fileName = `${timestamp}_${originalName}`;
-
-    // Criar diretório se não existir
-    const uploadDir = join(process.cwd(), 'public', 'uploads', 'products');
-    if (!existsSync(uploadDir)) {
-      await mkdir(uploadDir, { recursive: true });
-    }
-
-    // Salvar arquivo
-    const filePath = join(uploadDir, fileName);
-    await writeFile(filePath, buffer);
-
-    // Retornar URL relativa
-    const imageUrl = `/uploads/products/${fileName}`;
+    // Upload para Cloudinary
+    const result = await cloudinary.uploader.upload(base64String, {
+      folder: 'habbo-store/products',
+      transformation: [
+        { width: 800, height: 800, crop: 'limit' },
+        { quality: 'auto:good' },
+        { format: 'auto' }
+      ]
+    });
 
     return NextResponse.json({
       success: true,
       data: {
-        url: imageUrl,
-        filename: fileName,
+        url: result.secure_url,
+        public_id: result.public_id,
+        filename: file.name,
         size: file.size,
         type: file.type
       },
