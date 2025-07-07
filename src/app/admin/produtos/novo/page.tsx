@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { ArrowLeft, Plus, Save } from 'lucide-react';
+import { ArrowLeft, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import toast from 'react-hot-toast';
 import ImageUpload from '@/components/ui/ImageUpload';
@@ -297,7 +297,7 @@ export default function NovoProductPage() {
             <li>Use imagens do catálogo oficial do Habbo para melhor qualidade</li>
             <li>Defina preços justos baseados na raridade do item</li>
             <li>Escreva descrições claras e atrativas</li>
-            <li>Marque como "Destaque" apenas produtos especiais</li>
+            <li>Marque como &quot;Destaque&quot; apenas produtos especiais</li>
             <li>Mantenha o estoque atualizado para evitar vendas em excesso</li>
           </ul>
         </div>

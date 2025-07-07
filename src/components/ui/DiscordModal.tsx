@@ -74,7 +74,7 @@ export default function DiscordModal({ isOpen, onClose }: DiscordModalProps) {
                   <div className="w-6 h-6 bg-indigo-500 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0 mt-0.5">
                     2
                   </div>
-                  <p className="text-gray-700">Clique em "Adicionar Amigo" ou no ícone de +</p>
+                  <p className="text-gray-700">Clique em &quot;Adicionar Amigo&quot; ou no ícone de +</p>
                 </div>
                 
                 <div className="flex items-start space-x-3">
